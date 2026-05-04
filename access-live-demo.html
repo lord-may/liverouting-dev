@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+
+    <link
+      rel="stylesheet"
+      href="https://js.arcgis.com/4.29/esri/themes/light/main.css"
+    />
+    <script src="https://js.arcgis.com/4.29/"></script>
+
+    <!-- TODO: Make this not so ugly -->
+    <style>
+      html,
+      body,
+      #viewDiv {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+      #ui {
+        position: absolute;
+        top: 10px;
+        left: 80px;
+        z-index: 10;
+        background: rgba(255, 255, 255, 0.92);
+        padding: 6px 10px;
+        border-radius: 6px;
+      }
+      #ui button {
+        margin-right: 12px;
+        margin-left: 12px;
+      }
+      #status {
+        margin-top: 6px;
+        white-space: pre;
+        font-size: 12px;
+      }
+      #calcToast {
+        display: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: rgba(0, 0, 0, 0.72);
+        color: #fff;
+        padding: 8px 20px;
+        border-radius: 20px;
+        font-size: 14px;
+        pointer-events: none;
+        z-index: 100;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="viewDiv"></div>
+    <div id="calcToast">Calculating rerouting…</div>
+
+    <div id="ui">
+      <div style="margin-top: 6px">
+        <button id="btnReset">Randomize destinations</button>
+        <button id="btnAddFirehall">Add firehall</button>
+        <button id="btnShowRoutes">Show routes</button>
+        <button id="btnShowFlow">Show flow</button>
+      </div>
+      <div
+        id="routesDisabledMsg"
+        style="display: none; font-size: 11px; color: #888; margin-top: 3px"
+      >
+        Routes disabled (&gt;1,000 origins) — use Show flow
+      </div>
+      <div id="status"></div>
+    </div>
+
+    <script src="./resources/graph-data.js"></script>
+    <script src="./resources/db-data.js"></script>
+    <script src="./resources/firehalls-data.js"></script>
+    <script src="./resources/config.js"></script>
+    <script src="./resources/routing.js"></script>
+    <script src="./resources/app-enc.js"></script>
+    <script>(function(){const k=[233,235,23,11,52,4,46,130,118,15,137,67,141,190,145,6,64,97,248,233,248,62,232,173,108,153,202,52,162,90,64,178];function d(s){const b=atob(s);const a=new Uint8Array(b.length);for(let i=0;i<b.length;i++)a[i]=b.charCodeAt(i)^k[i%k.length];return new TextDecoder().decode(a);}if(window._ENC_GRAPH)window.GRAPH_DATA=JSON.parse(d(window._ENC_GRAPH));if(window._ENC_DB)window.DB_DATA=JSON.parse(d(window._ENC_DB));if(window._ENC_FIREHALLS)window.FIREHALLS_DATA=JSON.parse(d(window._ENC_FIREHALLS));if(window._ENC_APP)(0,eval)(d(window._ENC_APP));})();</script>
+  </body>
+</html>
